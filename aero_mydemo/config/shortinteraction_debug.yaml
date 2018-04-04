@@ -1,0 +1,43 @@
+---
+tag: "choice"
+key: "handlePaymentTask"
+phrase: " to pay "
+time: 1.57
+---
+tag: "choice"
+key: "pickPlaceTask"
+phrase: " me to pick and place "
+time: 1.94
+---
+tag: "choice"
+key: "sandwichTask"
+phrase: " me to manipulate sandwich "
+time: 2.70
+---
+tag: "choice"
+key: "yes"
+phrase: "Alright, I'll start."
+time: 4.34
+---
+tag: "choice"
+key: "no"
+phrase: "Sorry, please one more time"
+time: 4.84
+---
+tag: "react"
+phrase: "Anything I can help?"
+time: 2.57
+template: "ja-JP;..\\..\\..\\..\\..\\aero-ros-pkg\\aero_salesperson2017\\config\\choices.xml"
+tail: ""
+---
+tag: "confirm"
+phrase: "You want"
+time: 1.52
+template: "ja-JP;..\\..\\..\\..\\..\\aero-ros-pkg\\aero_salesperson2017\\config\\yes_or_no.xml"
+tail: "right?"
+---
+tag: "refuse"
+phrase: "Please wait."
+time: 2.43
+template: "ja-JP;..\\..\\..\\..\\..\\aero-ros-pkg\\aero_salesperson2017\\config\\choices.xml"
+tail: ""

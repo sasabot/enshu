@@ -1,0 +1,74 @@
+<launch>
+  <arg name="file" default="$(find aero_mydemo)/config/shortinteraction_debug.yaml"/>
+  <arg name="num_people" default="1"/>
+
+  <arg name="thetaf" default="0.707"/>
+  <arg name="r" default="1.2"/>
+
+  <!-- main -->
+
+  <include file="$(find aero_mydemo)/launch/shopsample.launch">
+     <arg name="speech_topic" value="/speech"/>
+     <arg name="file" value="$(arg file)"/>
+     <arg name="host" value="localhost"/>
+  </include>
+
+  <include file="$(find aero_object_detector)/launch/fcn_object_detector.launch">
+     <arg name="dummy" value="true"/>
+  </include>
+
+  <!-- kinect -->
+
+  <node name="dynamic_kinect_controller" pkg="aero_sensors_private"
+        type="dynamic_kinect_dummy_controller.py"/>
+
+  <node name="dynamic_kinect_frame_publisher" pkg="aero_sensors_private"
+        type="dynamic_kinect_frame_publisher"/>
+
+  <include file="$(find aero_sensors_private)/kinect/launch/person_detection2_onbot.launch">
+    <arg name="thetaf" value="$(arg thetaf)"/>
+    <arg name="output" value="log"/>
+  </include>
+
+  <!-- use /tf_msg/base_frame instead of /tf_msg/dynamic_kinect_frame -->
+  <param name="/project_points" value="true"/>
+  <node name="negomo_sensor" pkg="negomo"
+        type="negomo_sensor" output="screen">
+     <rosparam file="$(find negomo_enshu)/config/negomo.yaml"
+               command="load"/>
+     <remap from="/tf_msg/robot" to="/tf_msg/base_frame"/>
+     <remap from="/negomo/sensor/face" to="/negomo/sensor/face/dummy"/>
+  </node>
+
+  <!-- dummy filter for simulation only -->
+  <node name="dummy_sensor_filter" pkg="negomo"
+        type="dummy_sensor_filter" output="screen">
+     <param name="localradius_r" value="$(arg r)"/>
+     <remap from="/tf_msg/dynamic_sensor" to="/tf_msg/dynamic_kinect_frame"/>
+  </node>
+
+
+  <!-- simulated inputs -->
+
+  <node name="simulated_person" pkg="negomo"
+        type="simulated_person.py" output="screen">
+     <param name="num_people" value="$(arg num_people)"/>
+     <param name="templatedir" value="$(find aero_salesperson2017)/config/"/>
+     <param name="start" value="1.6,-1.4,1.4,0,0,0.707107,0.707107;-0.8,-1.2,1.4,0,0,1,0"/>
+  </node>
+
+  <node name="simulated_speak" pkg="negomo"
+        type="simulated_speak.py" output="screen"/>
+
+  <!-- for viewing -->
+
+  <node name="person_position_converter" pkg="aero_salesperson2017"
+        type="person_position_converter.py" output="screen">
+     <param name="person_num" value="$(arg num_people)"/>
+  </node>
+
+  <node name="person_model_publisher" pkg="aero_salesperson2017"
+        type="person_model_publisher.py" output="screen">
+     <param name="person_num" value="$(arg num_people)"/>
+  </node>
+</launch>

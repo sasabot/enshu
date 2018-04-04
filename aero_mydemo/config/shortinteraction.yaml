@@ -1,0 +1,43 @@
+---
+tag: "choice"
+key: "handlePaymentTask"
+phrase: "会計"
+time: 1.57
+---
+tag: "choice"
+key: "pickPlaceTask"
+phrase: "棚の陳列"
+time: 1.94
+---
+tag: "choice"
+key: "sandwichTask"
+phrase: "サンドウィッチの整列廃棄"
+time: 2.70
+---
+tag: "choice"
+key: "yes"
+phrase: "承知致しました。 すぐに準備します"
+time: 4.34
+---
+tag: "choice"
+key: "no"
+phrase: "申し訳ございません。 もう一度お願い致します"
+time: 4.84
+---
+tag: "react"
+phrase: "何かお困りでしょうか？"
+time: 2.57
+template: "ja-JP;..\\..\\..\\..\\..\\aero-ros-pkg\\aero_salesperson2017\\config\\choices.xml"
+tail: ""
+---
+tag: "confirm"
+phrase: ""
+time: 1.52
+template: "ja-JP;..\\..\\..\\..\\..\\aero-ros-pkg\\aero_salesperson2017\\config\\yes_or_no.xml"
+tail: "ですね？"
+---
+tag: "refuse"
+phrase: "少々お待ちください"
+time: 2.43
+template: "ja-JP;..\\..\\..\\..\\..\\aero-ros-pkg\\aero_salesperson2017\\config\\choices.xml"
+tail: ""
