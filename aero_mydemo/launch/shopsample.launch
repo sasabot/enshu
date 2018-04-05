@@ -41,5 +41,5 @@
      <param name="template" value="ja-JP;..\\..\\..\\..\\..\\aero-ros-pkg\\aero_salesperson2017\\config\\yes_or_no.xml"/>
   </node>
 
-  <include file="$(find negomo)/examples/launch/plot.launch"/>
+  <!--include file="$(find negomo)/examples/launch/plot.launch"/-->
 </launch>

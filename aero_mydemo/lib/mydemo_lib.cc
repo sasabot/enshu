@@ -238,7 +238,7 @@ int MyDemoLib::pickFromContainer(int _inhands, int &_nexttask) {
   robot_->setLookAt(pos, false, true);
   iStart(settings::wsf);
   if (coffee) { // pick coffee
-    coffee = lib_->pickCoffeeFront(pos, 0.8, arm); // 0.93
+    coffee = lib_->pickCoffeeFront(pos, 0.93, arm);
     robot_->setPoseVariables(aero::pose::reset_manip);
     robot_->setNeck(0.0, 0.0, 0.0);
     std::map<aero::joint, double> av;
@@ -273,6 +273,7 @@ int MyDemoLib::placeToShelf(int _inhands, int &_nexttask) {
     return _inhands;
 
   aero::arm arm = aero::arm::rarm;
+  float placeto = planner_->getEntities().get<float>("placeto", 0.0);
 
   iStart(settings::wsn);
   lib_->goTo
@@ -281,7 +282,7 @@ int MyDemoLib::placeToShelf(int _inhands, int &_nexttask) {
     return _inhands;
   settings::wsf.exec_time_ms = 15 * 1000;
   iStart(settings::wsf);
-  lib_->placeCoffee(Eigen::Vector3d(0.75, -0.25, 1.05), 0.0, arm);
+  lib_->placeCoffee(Eigen::Vector3d(0.75, -0.25, 1.05), placeto, arm);
   robot_->setPoseVariables(aero::pose::reset_manip);
   robot_->setNeck(0.0, 0.0, 0.0);
   std::map<aero::joint, double> av;
@@ -293,6 +294,7 @@ int MyDemoLib::placeToShelf(int _inhands, int &_nexttask) {
 
   // update remain count
   planner_->getEntities().put("remain", remainingItems - 1);
+  planner_->getEntities().put("placeto", placeto + 0.1);
   if (remainingItems <= 1) // now remaining = 0
     planner_->getEntities().put("loopCondition", false);
 

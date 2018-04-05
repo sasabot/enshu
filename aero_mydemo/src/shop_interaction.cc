@@ -13,7 +13,7 @@ void reactiveT0(int _target) {
     an_->robot_->stop();
   auto head = an_->planner_->getHeadPos(_target);
   an_->robot_->setLookAt(std::get<0>(head), std::get<1>(head), std::get<2>(head), true, true, false);
-  usleep(2000 * 1000);
+  usleep(1000 * 1000);
 };
 void returnPlanner(int _target) {
   an_->robot_->setLookAtTopic("/look_at/previous");
@@ -23,7 +23,7 @@ void returnPlanner(int _target) {
       usleep(200 * 1000);
     usleep(1000 * 1000);
   }
-  usleep(2000 * 1000);
+  usleep(1000 * 1000);
 };
 
 // ------------ exception action nodes ------------
